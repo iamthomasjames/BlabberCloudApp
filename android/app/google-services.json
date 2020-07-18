@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1086234057257",
+    "firebase_url": "https://app-tts-engine.firebaseio.com",
+    "project_id": "app-tts-engine",
+    "storage_bucket": "app-tts-engine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086234057257:android:f300ec71812c70ebc19a38",
+        "android_client_info": {
+          "package_name": "cloud.blabber.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086234057257-7ufk9fvfr8vbb5tijneiuaasb1ou839n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cloud.blabber.app",
+            "certificate_hash": "97b68bfc1c054ce9be98f68d3058c1e1df28d40c"
+          }
+        },
+        {
+          "client_id": "1086234057257-ira00t6p1i55as8eg952jrr0228h1mmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeolgvGCI2D8e1cdZZHpCUHnb4S18gXpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086234057257-ira00t6p1i55as8eg952jrr0228h1mmq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
