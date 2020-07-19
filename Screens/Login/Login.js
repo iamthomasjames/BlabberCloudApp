@@ -19,7 +19,7 @@ GoogleSignin.configure({
     '1086234057257-ira00t6p1i55as8eg952jrr0228h1mmq.apps.googleusercontent.com',
 });
 
-export default function Login() {
+export default function Login({navigation}) {
   const {width, height} = Dimensions.get('window');
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -37,12 +37,24 @@ export default function Login() {
 
   function onAuthStateChanged(user) {
     setUser(user);
+    console.log(user)
+    if(user)
+    {
+    navigation.navigate("Home",{
+        user: user.displayName,
+        email:user.email,
+        photo:user.photoURL,
+        uid:user.uid
+      })
+    }
     if (initializing) setInitializing(false);
   }
+ 
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
+
   }, []);
 
   return (
@@ -85,8 +97,8 @@ export default function Login() {
           justifyContent:'center'
          
         }}>
-         <View style={{marginHorizontal:30,backgroundColor:'red'}}>
-             <ButtonView title="LOGIN WITH GOOGLE" color="white" image={require('../../Assets/Images/google.png')} onPress={onGoogleButtonPress}/>
+         <View style={{marginHorizontal:30}}>
+            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={onGoogleButtonPress} image={require('../../Assets/Images/google.png')}/>
          </View>
         
         </View>
