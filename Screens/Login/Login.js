@@ -1,7 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Button, ImageBackground,StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  StatusBar,
+  Dimensions,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
+import ButtonView from '../../Components/Button/Index'
 
 GoogleSignin.configure({
   webClientId:
@@ -9,6 +20,7 @@ GoogleSignin.configure({
 });
 
 export default function Login() {
+  const {width, height} = Dimensions.get('window');
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
@@ -34,8 +46,50 @@ export default function Login() {
   }, []);
 
   return (
-    <View style={{flex: 1,backgroundColor:'white'}}>
-         <StatusBar backgroundColor="#ffff"  />
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <StatusBar backgroundColor="#ffff" />
+      <View
+        style={{
+          height: height / 1.5,
+          backgroundColor: 'white',
+          borderBottomEndRadius: 50,
+          alignItems: 'center',
+         
+          justifyContent:'center'
+        }}>
+             <View style={{flex:1, alignSelf: 'flex-start',marginHorizontal:30}}>
+          <Text style={{fontSize:30,color:'gold',fontWeight:'700'}}>BLABBER</Text>
+          <Text style={{letterSpacing:2,fontWeight:'700',textTransform:'uppercase'}}>The text to spech app</Text>
+        </View>
+        <View style={{flex: 4,...StyleSheet.absoluteFill}}>
+          <Image 
+            style={{
+              width: 500,
+              flex: 1,
+              height: 100,
+              resizeMode: 'contain',
+            }}
+            source={require('../../Assets/Images/login.png')}
+
+          />
+         
+        </View>
+       
+      </View>
+      <View
+        style={{
+          height: height - height / 1.5 + 50,
+          backgroundColor: 'tomato',
+          top: -50,
+          zIndex: -1,
+          justifyContent:'center'
+         
+        }}>
+         <View style={{marginHorizontal:30,backgroundColor:'red'}}>
+             <ButtonView title="LOGIN WITH GOOGLE" color="white" image={require('../../Assets/Images/google.png')} onPress={onGoogleButtonPress}/>
+         </View>
+        
+        </View>
     </View>
   );
 }
