@@ -20,7 +20,7 @@ export default function App({navigation}) {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);
+  }, [user]);
   
  
   return (

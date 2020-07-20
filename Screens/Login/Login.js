@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableHighlight,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
@@ -36,10 +37,12 @@ export default function Login({navigation}) {
   }
 
   function onAuthStateChanged(user) {
+    ToastAndroid.show("Started", ToastAndroid.SHORT);
     setUser(user);
     console.log(user)
     if(user)
     {
+    ToastAndroid.show("Done Varification", ToastAndroid.SHORT);
     navigation.navigate("Home",{
         user: user.displayName,
         email:user.email,
@@ -55,7 +58,7 @@ export default function Login({navigation}) {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
 
-  }, []);
+  });
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -98,7 +101,9 @@ export default function Login({navigation}) {
          
         }}>
          <View style={{marginHorizontal:30}}>
-            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={onGoogleButtonPress} image={require('../../Assets/Images/google.png')}/>
+            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={()=>{onGoogleButtonPress().then(()=>{
+              console.log("done")
+            })}} image={require('../../Assets/Images/google.png')}/>
          </View>
         
         </View>
