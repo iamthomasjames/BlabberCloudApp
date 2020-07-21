@@ -7,7 +7,6 @@ import Login from './Screens/Login/Login'
 import auth from '@react-native-firebase/auth';
 import Home from './Screens/Home/Home'
 
-
 export default function App({navigation}) {
   const Stack = createStackNavigator();
   const [initializing, setInitializing] = useState(true);

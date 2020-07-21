@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 
-export default function App({title,color,image,onPress}) {
+export default function App({title,color,image,onPress,text}) {
     return (
         
             <TouchableOpacity onPress={()=>{
@@ -11,7 +11,7 @@ export default function App({title,color,image,onPress}) {
                   <Image source={image}
                   style={{width:30,height:30}}/>:null}
             
-                <Text>{title}</Text>
+                <Text style={{color:text}}>{title}</Text>
             </TouchableOpacity>
             
         

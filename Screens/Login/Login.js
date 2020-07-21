@@ -14,6 +14,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import ButtonView from '../../Components/Button/Index'
+import LottieView from 'lottie-react-native';
 
 GoogleSignin.configure({
   webClientId:
@@ -24,6 +25,8 @@ export default function Login({navigation}) {
   const {width, height} = Dimensions.get('window');
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(false);
+
 
   async function onGoogleButtonPress() {
     // Get the users ID token
@@ -37,12 +40,10 @@ export default function Login({navigation}) {
   }
 
   function onAuthStateChanged(user) {
-    ToastAndroid.show("Started", ToastAndroid.SHORT);
     setUser(user);
     console.log(user)
     if(user)
     {
-    ToastAndroid.show("Done Varification", ToastAndroid.SHORT);
     navigation.navigate("Home",{
         user: user.displayName,
         email:user.email,
@@ -60,6 +61,7 @@ export default function Login({navigation}) {
 
   });
 
+  if(!loading){
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <StatusBar backgroundColor="#ffff" />
@@ -101,14 +103,26 @@ export default function Login({navigation}) {
          
         }}>
          <View style={{marginHorizontal:30}}>
-            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={()=>{onGoogleButtonPress().then(()=>{
-              console.log("done")
+
+            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={()=>{
+              setLoading(true)
+              onGoogleButtonPress().then(()=>{
+              setLoading(false)
             })}} image={require('../../Assets/Images/google.png')}/>
          </View>
         
         </View>
     </View>
   );
+          }
+          else{
+            return(
+              <View style={{flex:1,backgroundColor:"green"}}>
+                <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
+              </View>
+              
+            )
+          }
 }
 
 const styles = StyleSheet.create({});
