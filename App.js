@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screens/Login/Login'
 import auth from '@react-native-firebase/auth';
-import Home from './Screens/Home/Home'
+import Home from './Screens/Home/HomeOpen'
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();

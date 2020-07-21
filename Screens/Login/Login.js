@@ -117,8 +117,13 @@ export default function Login({navigation}) {
           }
           else{
             return(
-              <View style={{flex:1,backgroundColor:"green"}}>
+              <View style={{flex:1,backgroundColor:"green",alignContent:'center',justifyContent:'center'}}>
+                <View style={{flex:1,alignContent:'center',justifyContent:'center'}}>
                 <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
+                <View style={{marginTop:140}}>
+                <Text style={{alignSelf:'center',color:'white',fontSize:20,fontWeight:'700'}}>Signing.....</Text>
+                </View>
+                </View>
               </View>
               
             )
