@@ -12,6 +12,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,6 +32,10 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           //packages.add(new VectorIconsPackage());
           packages.add(new LottiePackage());
+          packages.add(new RNFetchBlobPackage());
+
+         // packages.add(new RNSoundPackage());
+
           return packages;
         }
 

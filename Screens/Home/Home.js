@@ -17,6 +17,8 @@ import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon3 from 'react-native-vector-icons/Feather';
 import ButtonView from '../../Components/Button/Index'
+import axios from 'axios'
+import Sound from 'react-native-sound';
 
 export default function Home({route, navigation}) {
   const {width, height} = Dimensions.get('window');
@@ -30,6 +32,32 @@ export default function Home({route, navigation}) {
   const [language,setLanguage]=useState('');
   const [voiceopen,setVoiceOpen]=useState(false);
   const [languageopen,setLanguageOpen]=useState(false);
+  
+
+  const onSubmitHandler= async()=>{
+     console.log("voice:",voice);
+     console.log("text:",text.text);
+
+    try {
+      const response = await axios.post('https://us-central1-app-tts-engine.cloudfunctions.net/app/speech', {
+        text: text.text,
+        voice:voice
+      });
+      
+      const url = response.data;
+      console.log(url);
+      const sound = new Sound(url, null, (error) => {
+        if (error) {
+          // do something
+          console.log(error);
+        }
+        // play when loaded
+        sound.play();
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     const backAction = () => {
@@ -205,7 +233,7 @@ export default function Home({route, navigation}) {
               }
             />
             {languageopen?null: <View style={{marginTop:30}}>
-            <ButtonView title="PROCESS TO MP3" color="tomato" text="white"/>
+            <ButtonView title="PROCESS TO MP3" color="tomato" text="white" onPress={onSubmitHandler}/>
             </View>}
            
              </View>

@@ -12,6 +12,10 @@ target 'Blabber' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'BlabberTests' do
     inherit! :complete
     # Pods for testing
