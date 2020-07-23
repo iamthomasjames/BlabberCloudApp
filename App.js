@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screens/Login/Login'
 import auth from '@react-native-firebase/auth';
 import Home from './Screens/Home/HomeOpen'
+import FilesPage from './Screens/ShowFiles/ShowFiles'
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -25,8 +26,10 @@ export default function App({navigation}) {
   return (
     <NavigationContainer>
        <Stack.Navigator initialRouteName="login">
+       
        <Stack.Screen name="Login" component={Login} options={{ headerShown:false }} navigation={navigation}/>
        <Stack.Screen name="Home" component={Home} options={{ headerShown:false }} />
+       <Stack.Screen name="FilesPage" component={FilesPage} options={{ headerShown:false }} />
      </Stack.Navigator>
     </NavigationContainer>
   )

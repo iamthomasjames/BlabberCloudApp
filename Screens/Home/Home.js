@@ -43,6 +43,18 @@ export default function Home({route, navigation}) {
   const [displayfillist,setDisplayFileList]=useState({});
 
 
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key')
+      console.log(jsonValue)
+      navigation.navigate("FilesPage",{
+        jsonvalues:jsonValue
+      })
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      // error reading value
+    }
+  }
   
   const onSubmitHandler = async () => {
     let random;
@@ -102,6 +114,7 @@ export default function Home({route, navigation}) {
           .then((res) => {
               // console.log('res.path ', res.path());
               console.log('res.path ', res.path());
+              alert("Your file saved to"+res.path());
               random= Math.floor(Math.random() * 1000000000000);
 
               setFileList({...filelist,[random]: {
@@ -174,7 +187,6 @@ export default function Home({route, navigation}) {
           }}
         />
       </View>
-      {console.log(displayfillist)}
       <View
         style={{
           height: height / 6,
@@ -358,6 +370,7 @@ export default function Home({route, navigation}) {
                 />
                 {languageopen ? null : (
                   <View style={{marginTop: 30}}>
+                    <View>
                     <ButtonView
                       title="PROCESS TO MP3"
                       color="tomato"
@@ -366,7 +379,17 @@ export default function Home({route, navigation}) {
                         setModalVisible(true);
                       }}
                     />
+                    </View>
+                    <View style={{marginTop:10}}>
+                    <ButtonView
+                      title="SHOW YOUR FILES"
+                      color="tomato"
+                      text="white"
+                      onPress={getData}
+                    />
+                    </View>
                   </View>
+                  
                 )}
               </View>
             )}
