@@ -29,7 +29,7 @@ export default function App({navigation}) {
        
        <Stack.Screen name="Login" component={Login} options={{ headerShown:false }} navigation={navigation}/>
        <Stack.Screen name="Home" component={Home} options={{ headerShown:false }} />
-       <Stack.Screen name="FilesPage" component={FilesPage} options={{ headerShown:false }} />
+       <Stack.Screen name="FilesPage" component={Home} options={{ headerShown:false }} />
      </Stack.Navigator>
     </NavigationContainer>
   )

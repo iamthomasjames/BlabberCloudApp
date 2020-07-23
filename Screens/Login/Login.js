@@ -41,7 +41,6 @@ export default function Login({navigation}) {
 
   function onAuthStateChanged(user) {
     setUser(user);
-    console.log(user)
     if(user)
     {
     navigation.navigate("Home",{

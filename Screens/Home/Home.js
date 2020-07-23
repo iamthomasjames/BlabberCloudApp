@@ -16,7 +16,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Fontisto';
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {TextInput, TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon3 from 'react-native-vector-icons/Feather';
 import ButtonView from '../../Components/Button/Index';
@@ -42,19 +42,6 @@ export default function Home({route, navigation}) {
   const [filelist,setFileList]=useState({});
   const [displayfillist,setDisplayFileList]=useState({});
 
-
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      console.log(jsonValue)
-      navigation.navigate("FilesPage",{
-        jsonvalues:jsonValue
-      })
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch(e) {
-      // error reading value
-    }
-  }
   
   const onSubmitHandler = async () => {
     let random;
@@ -170,6 +157,7 @@ export default function Home({route, navigation}) {
   }, []);
 
   return (
+    <ScrollView>
     <View style={{flex: 1}}>
       <StatusBar backgroundColor="tomato" />
       <View
@@ -381,12 +369,6 @@ export default function Home({route, navigation}) {
                     />
                     </View>
                     <View style={{marginTop:10}}>
-                    <ButtonView
-                      title="SHOW YOUR FILES"
-                      color="tomato"
-                      text="white"
-                      onPress={getData}
-                    />
                     </View>
                   </View>
                   
@@ -397,6 +379,7 @@ export default function Home({route, navigation}) {
         </View>
       </View>
     </View>
+    </ScrollView>
   );
 }
 
