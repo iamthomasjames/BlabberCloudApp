@@ -23,6 +23,7 @@ import ButtonView from '../../Components/Button/Index';
 import axios from 'axios';
 import Sound from 'react-native-sound';
 import RNFetchBlob from 'rn-fetch-blob';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Home({route, navigation}) {
   const {width, height} = Dimensions.get('window');
@@ -38,10 +39,13 @@ export default function Home({route, navigation}) {
   const [languageopen, setLanguageOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [filename, setFilename] = useState("");
+  const [filelist,setFileList]=useState({});
+  const [displayfillist,setDisplayFileList]=useState({});
 
 
+  
   const onSubmitHandler = async () => {
-
+    let random;
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       {
@@ -98,7 +102,22 @@ export default function Home({route, navigation}) {
           .then((res) => {
               // console.log('res.path ', res.path());
               console.log('res.path ', res.path());
-             
+              random= Math.floor(Math.random() * 1000000000000);
+
+              setFileList({...filelist,[random]: {
+                name: filename,
+                path: res.path()
+                }})
+
+                const storeData = async (value) => {
+                  try {
+                    const jsonValue = JSON.stringify(value)
+                    await AsyncStorage.setItem('@storage_Key', jsonValue)
+                  } catch (e) {
+                    // saving error
+                  }
+                }
+                storeData(filelist);
              // android.actionViewIntent(res.path(), 'application/vnd.android.package-archive');
           })
           .catch((err) => {
@@ -116,6 +135,7 @@ export default function Home({route, navigation}) {
   };
 
   useEffect(() => {
+    
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to exit?', [
         {
@@ -154,6 +174,7 @@ export default function Home({route, navigation}) {
           }}
         />
       </View>
+      {console.log(displayfillist)}
       <View
         style={{
           height: height / 6,

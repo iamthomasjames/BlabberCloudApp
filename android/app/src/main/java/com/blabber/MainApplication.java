@@ -14,6 +14,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           //packages.add(new VectorIconsPackage());
           packages.add(new LottiePackage());
+          //packages.add(new AsyncStoragePackage());
          // packages.add(new RNFetchBlobPackage());
 
          // packages.add(new RNSoundPackage());
