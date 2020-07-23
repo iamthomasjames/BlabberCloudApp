@@ -32,7 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           //packages.add(new VectorIconsPackage());
           packages.add(new LottiePackage());
-          packages.add(new RNFetchBlobPackage());
+         // packages.add(new RNFetchBlobPackage());
 
          // packages.add(new RNSoundPackage());
 
