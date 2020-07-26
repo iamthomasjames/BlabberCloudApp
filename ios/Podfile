@@ -20,6 +20,8 @@ target 'Blabber' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'BlabberTests' do
     inherit! :complete
     # Pods for testing

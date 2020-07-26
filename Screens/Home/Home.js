@@ -85,14 +85,14 @@ export default function Home({route, navigation}) {
         });
 
         const android = RNFetchBlob.android;
-        const filenam = "BlabberCloud_"+filename + '.mp3';
+        const filenam = 'BlabberCloud_' + filename + '.mp3';
         const filepath =
           RNFetchBlob.fs.dirs.SDCardDir + '/BlabberApp/' + filenam;
         const downloadAppUrl = url;
         RNFetchBlob.config({
           // response data will be saved to this path if it has access right.
           path: filepath,
-          appendExt : 'mp3'
+          appendExt: 'mp3',
         })
           .fetch('GET', downloadAppUrl, {
             //some headers ..
@@ -101,7 +101,7 @@ export default function Home({route, navigation}) {
             // the path should be dirs.DocumentDir + 'path-to-file.anything'
             console.log('The file saved to ', res.path());
 
-            Alert.alert('File Saved!', 'Your file saved to'+res.path(), [
+            Alert.alert('File Saved!', 'Your file saved to' + res.path(), [
               {
                 text: 'OK',
                 onPress: () => null,
@@ -109,7 +109,7 @@ export default function Home({route, navigation}) {
               },
             ]);
             setLoading(false);
-            setModalVisible(false)
+            setModalVisible(false);
           });
         // RNFetchBlob.config({
         //   addAndroidDownloads: {
@@ -164,8 +164,8 @@ export default function Home({route, navigation}) {
         //   });
       } catch (err) {
         console.log(err);
-        setModalVisible(false)
-        setLoading(false)
+        setModalVisible(false);
+        setLoading(false);
       }
     } else {
       alert('Please allow the storage persmission to save files');
@@ -197,17 +197,41 @@ export default function Home({route, navigation}) {
   }, []);
 
   if (loading) {
-    return(
-      <View style={{flex:1,backgroundColor:"#3dadcc",alignContent:'center',justifyContent:'center'}}>
-        <View style={{flex:1,alignContent:'center',justifyContent:'center',padding:30}}>
-        <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
-        <View style={{marginTop:140}}>
-        <Text style={{alignSelf:'center',color:'white',fontSize:20,fontWeight:'700',textAlign:'center'}}>Sit back and relax! We are prepairing your files</Text>
-        </View>
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#3dadcc',
+          alignContent: 'center',
+          justifyContent: 'center',
+        }}>
+        <View
+          style={{
+            flex: 1,
+            alignContent: 'center',
+            justifyContent: 'center',
+            padding: 30,
+          }}>
+          <LottieView
+            source={require('../../Assets/json/loading.json')}
+            autoPlay
+            loop
+          />
+          <View style={{marginTop: 140}}>
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: 'white',
+                fontSize: 20,
+                fontWeight: '700',
+                textAlign: 'center',
+              }}>
+              Sit back and relax! We are prepairing your files
+            </Text>
+          </View>
         </View>
       </View>
-      
-    )
+    );
   } else {
     return (
       <View style={{flex: 1}}>
@@ -352,38 +376,56 @@ export default function Home({route, navigation}) {
                     onPress={() => {
                       setModalVisible(false);
                     }}>
-                    <Text style={{color:"white",textAlign:'center',fontWeight:'700'}}>CANCEL</Text>
+                    <Text
+                      style={{
+                        color: 'white',
+                        textAlign: 'center',
+                        fontWeight: '700',
+                      }}>
+                      CANCEL
+                    </Text>
                   </TouchableHighlight>
                 </View>
               </View>
             </Modal>
 
-           <View style={{height:70,backgroundColor:'gold',justifyContent:'center',borderRadius:10}}>
-             
-             <View style={{flexDirection:'row',alignItems:'center'}}>
-               <View style={{}}>
-               <Icon
-               style={{paddingHorizontal:10}}
-              name="information-circle"
-              size={30}
-              color="white"
-            />
-               </View>
-               <View style={{padding:10}}>
-                 <Text style={{alignSelf:'center',padding:20,color:'black',fontWeight:'bold'}}>Using punctuations like <Text style={{color:'black',fontSize:17,fontWeight:'bold'}}>.,?!-[]()</Text> can help you to udjust the speech moducalation.</Text>
-               </View>
-             </View>
-           </View>
+            <View
+              style={{
+                height: 70,
+                backgroundColor: 'gold',
+                justifyContent: 'center',
+                borderRadius: 10,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Icon name="information-circle" size={30} color="white" />
+
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    paddingRight: 25,
+                  }}>
+                  Using punctuations like{' '}
+                  <Text
+                    style={{color: 'black', fontWeight: 'bold',textDecorationLine:'underline'}}>
+                    .,?!-[]()
+                  </Text>{' '}
+                  can help you to udjust the speech moducalation.
+                </Text>
+              </View>
+            </View>
 
             <View>
-            <Text>ENTER YOUR TEXT</Text>
-            <TextInput
-              multiline={true}
-              numberOfLines={4}
-              onChangeText={(text) => setText({text})}
-              value={text}
-              style={{borderColor: 'black', borderWidth: 1, borderRadius: 10}}
-            />
+              <Text>ENTER YOUR TEXT</Text>
+              <TextInput
+                multiline={true}
+                numberOfLines={4}
+                onChangeText={(text) => setText({text})}
+                value={text}
+                style={{borderColor: 'black', borderWidth: 1, borderRadius: 10}}
+                
+              />
             </View>
           </View>
           <View>

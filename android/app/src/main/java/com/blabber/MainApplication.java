@@ -15,6 +15,8 @@ import com.zmxv.RNSound.RNSoundPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.rnfs.RNFSPackage;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -33,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           //packages.add(new VectorIconsPackage());
           packages.add(new LottiePackage());
+          // packages.add(new RNSharePackage());
          // packages.add(new RNFSPackage());
           //packages.add(new AsyncStoragePackage());
          // packages.add(new RNFetchBlobPackage());
