@@ -7,9 +7,8 @@ import {
   ImageBackground,
   StatusBar,
   Dimensions,
-  TouchableHighlight,
-  TouchableOpacity,
-  ToastAndroid
+  Alert,
+  BackHandler
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
@@ -53,7 +52,27 @@ export default function Login({navigation}) {
     if (initializing) setInitializing(false);
   }
  
+  useEffect(() => {
+    
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
@@ -95,7 +114,7 @@ export default function Login({navigation}) {
       <View
         style={{
           height: height - height / 1.5 + 50,
-          backgroundColor: 'tomato',
+          backgroundColor: '#72cee7',
           top: -50,
           zIndex: -1,
           justifyContent:'center'
@@ -103,7 +122,7 @@ export default function Login({navigation}) {
         }}>
          <View style={{marginHorizontal:30}}>
 
-            <ButtonView title="LOGIN WITH GOOGLE" color="white" onPress={()=>{
+            <ButtonView title="CONTINUE WITH GOOGLE" color="white" onPress={()=>{
               setLoading(true)
               onGoogleButtonPress().then(()=>{
               setLoading(false)
@@ -116,7 +135,7 @@ export default function Login({navigation}) {
           }
           else{
             return(
-              <View style={{flex:1,backgroundColor:"green",alignContent:'center',justifyContent:'center'}}>
+              <View style={{flex:1,backgroundColor:"#72cee7",alignContent:'center',justifyContent:'center'}}>
                 <View style={{flex:1,alignContent:'center',justifyContent:'center'}}>
                 <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
                 <View style={{marginTop:140}}>

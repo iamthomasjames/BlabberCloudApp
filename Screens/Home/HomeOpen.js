@@ -7,12 +7,13 @@ import Home from '../Home/Home';
 import Files from '../ShowFiles/ShowFiles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
+
 function NotificationsScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
+  auth()
+    .signOut()
+    .then(() => navigation.navigate('Login'));
+  return null;
 }
 
 const Drawer = createDrawerNavigator();
@@ -27,11 +28,11 @@ const BottomTabNavigator = ({route, navigation}) => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'home'
-              : 'home-outline';
+            iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Files') {
-            iconName = focused ? 'file-tray-stacked':'file-tray-stacked-outline';
+            iconName = focused
+              ? 'file-tray-stacked'
+              : 'file-tray-stacked-outline';
           }
 
           // You can return any component that you like here!
@@ -39,7 +40,7 @@ const BottomTabNavigator = ({route, navigation}) => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: '#72cee7',
         inactiveTintColor: 'gray',
       }}>
       <Tab.Screen
@@ -61,7 +62,7 @@ export default function HomeOpen({route, navigation}) {
         component={BottomTabNavigator}
         initialParams={route}
       />
-      <Drawer.Screen name="About Us" component={NotificationsScreen} />
+      <Drawer.Screen name="Logout" component={NotificationsScreen} />
     </Drawer.Navigator>
   );
 }
