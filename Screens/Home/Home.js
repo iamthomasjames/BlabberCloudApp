@@ -85,7 +85,7 @@ export default function Home({route, navigation}) {
         });
 
         const android = RNFetchBlob.android;
-        const filenam = filename + '.mp3';
+        const filenam = "BlabberCloud_"+filename + '.mp3';
         const filepath =
           RNFetchBlob.fs.dirs.SDCardDir + '/BlabberApp/' + filenam;
         const downloadAppUrl = url;
@@ -100,6 +100,14 @@ export default function Home({route, navigation}) {
           .then((res) => {
             // the path should be dirs.DocumentDir + 'path-to-file.anything'
             console.log('The file saved to ', res.path());
+
+            Alert.alert('File Saved!', 'Your file saved to'+res.path(), [
+              {
+                text: 'OK',
+                onPress: () => null,
+                style: 'cancel',
+              },
+            ]);
             setLoading(false);
             setModalVisible(false)
           });
@@ -189,38 +197,24 @@ export default function Home({route, navigation}) {
   }, []);
 
   if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'white',
-
-          backgroundColor: '#72cee7',
-        }}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            elevation: 5,
-            padding: 10,
-            borderRadius: 10,
-          }}>
-          <ActivityIndicator size="large" color="#00ff00" />
-          <Text>Sit back and relax!! We are prepairing your files.</Text>
+    return(
+      <View style={{flex:1,backgroundColor:"#3dadcc",alignContent:'center',justifyContent:'center'}}>
+        <View style={{flex:1,alignContent:'center',justifyContent:'center',padding:30}}>
+        <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
+        <View style={{marginTop:140}}>
+        <Text style={{alignSelf:'center',color:'white',fontSize:20,fontWeight:'700',textAlign:'center'}}>Sit back and relax! We are prepairing your files</Text>
+        </View>
         </View>
       </View>
-    );
+      
+    )
   } else {
     return (
       <View style={{flex: 1}}>
-        <StatusBar backgroundColor="#72cee7" />
+        <StatusBar backgroundColor="#3dadcc" />
         <View
           style={{
-            backgroundColor: '#72cee7',
+            backgroundColor: '#3dadcc',
             paddingHorizontal: 10,
             paddingTop: 10,
             flexDirection: 'row',
@@ -249,7 +243,7 @@ export default function Home({route, navigation}) {
         <View
           style={{
             height: height / 6,
-            backgroundColor: '#72cee7',
+            backgroundColor: '#3dadcc',
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
             flexDirection: 'row',
@@ -341,7 +335,7 @@ export default function Home({route, navigation}) {
                   <TouchableHighlight
                     style={{
                       ...styles.openButton,
-                      backgroundColor: '#72cee7',
+                      backgroundColor: '#3dadcc',
                       marginTop: 10,
                     }}
                     onPress={() => {
@@ -352,17 +346,36 @@ export default function Home({route, navigation}) {
                   <TouchableHighlight
                     style={{
                       ...styles.openButton,
-                      backgroundColor: 'grey',
+                      backgroundColor: 'black',
                       marginTop: 10,
                     }}
                     onPress={() => {
                       setModalVisible(false);
                     }}>
-                    <Text style={styles.textStyle}>CANCEL</Text>
+                    <Text style={{color:"white",textAlign:'center',fontWeight:'700'}}>CANCEL</Text>
                   </TouchableHighlight>
                 </View>
               </View>
             </Modal>
+
+           <View style={{height:70,backgroundColor:'gold',justifyContent:'center',borderRadius:10}}>
+             
+             <View style={{flexDirection:'row',alignItems:'center'}}>
+               <View style={{}}>
+               <Icon
+               style={{paddingHorizontal:10}}
+              name="information-circle"
+              size={30}
+              color="white"
+            />
+               </View>
+               <View style={{padding:10}}>
+                 <Text style={{alignSelf:'center',padding:20,color:'black',fontWeight:'bold'}}>Using punctuations like <Text style={{color:'black',fontSize:17,fontWeight:'bold'}}>.,?!-[]()</Text> can help you to udjust the speech moducalation.</Text>
+               </View>
+             </View>
+           </View>
+
+            <View>
             <Text>ENTER YOUR TEXT</Text>
             <TextInput
               multiline={true}
@@ -371,6 +384,7 @@ export default function Home({route, navigation}) {
               value={text}
               style={{borderColor: 'black', borderWidth: 1, borderRadius: 10}}
             />
+            </View>
           </View>
           <View>
             <View style={{paddingHorizontal: 30}}>
@@ -474,7 +488,7 @@ export default function Home({route, navigation}) {
                       <View>
                         <ButtonView
                           title="PROCESS TO MP3"
-                          color="#72cee7"
+                          color="#3dadcc"
                           text="white"
                           onPress={() => {
                             if (text && voice) {

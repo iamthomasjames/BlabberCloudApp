@@ -100,7 +100,7 @@ export default function ShowFiles({route, navigation}) {
   if (!filelist[0]) {
     return (
     <View style={{flex: 1,alignItems:'center',justifyContent:'center'}}>
-       <StatusBar backgroundColor="#72cee7"  />
+       <StatusBar backgroundColor="#3dadcc"  />
          <LottieView source={require('../../Assets/json/not-found.json')} autoPlay loop />
          <Text style={{marginTop:200}}>Not found any files</Text>
          <Button title="Refresh" onPress={()=>{
@@ -111,7 +111,7 @@ export default function ShowFiles({route, navigation}) {
   } else {
     return (
       <View style={{flex: 1}}>
-         <StatusBar backgroundColor="#72cee7" />
+         <StatusBar backgroundColor="#3dadcc" />
         <SnackBar
           visible={visible}
           textMessage="Data refreshed"
@@ -125,7 +125,7 @@ export default function ShowFiles({route, navigation}) {
               onPress={() => {
                 getData();
               }}>
-              <Icon name="refresh-circle" size={30} color="#72cee7" />
+              <Icon name="refresh-circle" size={30} color="#3dadcc" />
             </TouchableOpacity>
           </View>
           <ScrollView>
@@ -164,7 +164,7 @@ export default function ShowFiles({route, navigation}) {
                       <Icon
                         name="musical-notes-outline"
                         size={20}
-                        color="#72cee7"
+                        color="#3dadcc"
                       />
                     </View>
                     <View>

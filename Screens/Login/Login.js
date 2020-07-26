@@ -114,7 +114,7 @@ export default function Login({navigation}) {
       <View
         style={{
           height: height - height / 1.5 + 50,
-          backgroundColor: '#72cee7',
+          backgroundColor: '#3dadcc',
           top: -50,
           zIndex: -1,
           justifyContent:'center'
@@ -135,7 +135,7 @@ export default function Login({navigation}) {
           }
           else{
             return(
-              <View style={{flex:1,backgroundColor:"#72cee7",alignContent:'center',justifyContent:'center'}}>
+              <View style={{flex:1,backgroundColor:"#3dadcc",alignContent:'center',justifyContent:'center'}}>
                 <View style={{flex:1,alignContent:'center',justifyContent:'center'}}>
                 <LottieView source={require('../../Assets/json/loading.json')} autoPlay loop />
                 <View style={{marginTop:140}}>
