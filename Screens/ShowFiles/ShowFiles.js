@@ -8,9 +8,8 @@ import {
   PermissionsAndroid,
   StatusBar,
   Dimensions,
-  
 } from 'react-native';
-import Share from "react-native-share";
+import Share from 'react-native-share';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,11 +19,14 @@ import SnackBar from 'react-native-snackbar-component';
 import LottieView from 'lottie-react-native';
 
 import Sound from 'react-native-sound';
+
+let sound;
 export default function ShowFiles({route, navigation}) {
   const {width, height} = Dimensions.get('window');
   const [filelist, setFileList] = useState({});
   const [visible, setVisible] = useState(false);
-  let sound;
+  const [buttonVisible,setButtonVisible]=useState(false);
+  
   let filepath = '/storage/emulated/0/BlabberApp';
   const getData = async () => {
     PermissionsAndroid.requestMultiple(
@@ -79,7 +81,7 @@ export default function ShowFiles({route, navigation}) {
           permRes['android.permission.WRITE_EXTERNAL_STORAGE'] ===
             PermissionsAndroid.RESULTS.GRANTED
         ) {
-         // setVisible(true);
+          // setVisible(true);
           try {
             var TRACK_FOLDER = RNFetchBlob.fs.dirs.SDCardDir + '/BlabberApp/';
             let files = await RNFetchBlob.fs.ls(TRACK_FOLDER);
@@ -188,9 +190,10 @@ export default function ShowFiles({route, navigation}) {
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <TouchableOpacity
+                        <TouchableOpacity disabled={!buttonVisible}
                           onPress={() => {
                             sound.pause();
+                            setButtonVisible(false)
                           }}>
                           <Icon
                             style={{padding: 10}}
@@ -199,8 +202,9 @@ export default function ShowFiles({route, navigation}) {
                             color="white"
                           />
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        <TouchableOpacity disabled={buttonVisible}
                           onPress={() => {
+                            setButtonVisible(true);
                             sound = new Sound(
                               filepath + '/' + name,
                               null,
@@ -210,7 +214,10 @@ export default function ShowFiles({route, navigation}) {
                                   console.log(error);
                                 }
                                 // play when loaded
-                                sound.play();
+                               
+                                sound.play(()=>{
+                                  setButtonVisible(false);
+                                });
                               },
                             );
                           }}>
@@ -218,16 +225,17 @@ export default function ShowFiles({route, navigation}) {
                             style={{padding: 10}}
                             name="play"
                             size={20}
-                            color="white"
+                            color={buttonVisible?"#F0F0F0":'white'}
                           />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{
+                        <TouchableOpacity 
+                          onPress={() => {
                             Share.open({
-                                url: 'file://'+filepath + '/' + name,
-                                type: 'audio/mp3',
-                                failOnCancel: false
+                              url: 'file://' + filepath + '/' + name,
+                              type: 'audio/mp3',
+                              failOnCancel: false,
                             });
-                        }}>
+                          }}>
                           <Icon
                             style={{padding: 10}}
                             name="share-social"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -8,11 +8,22 @@ import Files from '../ShowFiles/ShowFiles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import {Linking} from 'react-native'
 
 function NotificationsScreen({navigation}) {
   auth()
     .signOut()
     .then(() => navigation.navigate('Login'));
+  return null;
+}
+
+function YoutubelinkScreen({navigation}) {
+ 
+  const URL = "https://google.com"
+  useEffect(()=>{
+    Linking.openURL(URL).catch((err) => console.error('An error occurred', err));
+    navigation.navigate("Home")
+  })
   return null;
 }
 
@@ -62,6 +73,8 @@ export default function HomeOpen({route, navigation}) {
         component={BottomTabNavigator}
         initialParams={route}
       />
+     
+      <Drawer.Screen name="Tutorials" component={YoutubelinkScreen} />
       <Drawer.Screen name="Logout" component={NotificationsScreen} />
     </Drawer.Navigator>
   );

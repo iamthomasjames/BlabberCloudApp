@@ -48,6 +48,7 @@ export default function Home({route, navigation}) {
   const [filelist, setFileList] = useState({});
   const [displayfillist, setDisplayFileList] = useState({});
   const [loading, setLoading] = useState(false);
+  const [dropdownVisible,setDropdownVisible]= useState(true);
 
   const onSubmitHandler = async () => {
     const granted = await PermissionsAndroid.request(
@@ -70,6 +71,7 @@ export default function Home({route, navigation}) {
           {
             text: text.text,
             voice: voice,
+            language:language
           },
         );
 
@@ -234,6 +236,7 @@ export default function Home({route, navigation}) {
     );
   } else {
     return (
+      
       <View style={{flex: 1}}>
         <StatusBar backgroundColor="#3dadcc" />
         <View
@@ -266,7 +269,7 @@ export default function Home({route, navigation}) {
         </View>
         <View
           style={{
-            height: height / 6,
+            height: height / 8,
             backgroundColor: '#3dadcc',
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
@@ -297,13 +300,8 @@ export default function Home({route, navigation}) {
                 style={{height: 40, width: 40, resizeMode: 'contain'}}
               />
             </View>
-
-            {/* <Text
-              style={{alignSelf: 'center', fontWeight: 'bold', color: 'white'}}>
-              {user}
-            </Text> */}
           </View>
-          <TouchableOpacity
+          <TouchableOpacity style={{alignItems:'center',justifyContent:'center'}}
             onPress={() => {
               alert('Yet to be added!!');
             }}>
@@ -388,39 +386,40 @@ export default function Home({route, navigation}) {
                 </View>
               </View>
             </Modal>
+{dropdownVisible?
+  <View 
+  style={{
+    height: 70,
+    backgroundColor: 'gold',
+    justifyContent: 'center',
+    borderRadius: 10,
+  }}>
+  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <Icon name="information-circle" size={30} color="white" />
 
-            <View
-              style={{
-                height: 70,
-                backgroundColor: 'gold',
-                justifyContent: 'center',
-                borderRadius: 10,
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Icon name="information-circle" size={30} color="white" />
-
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: 'black',
-                    fontWeight: 'bold',
-                    paddingRight: 25,
-                  }}>
-                  Using punctuations like{' '}
-                  <Text
-                    style={{color: 'black', fontWeight: 'bold',textDecorationLine:'underline'}}>
-                    .,?!-[]()
-                  </Text>{' '}
-                  can help you to udjust the speech moducalation.
-                </Text>
-              </View>
-            </View>
+    <Text
+      style={{
+        alignSelf: 'center',
+        color: 'black',
+        fontWeight: 'bold',
+        paddingRight: 25,
+      }}>
+      Using punctuations like  {' '}
+      <Text
+        style={{color: 'black',textDecorationLine:'underline'}}>
+                .,?!-[]()
+      </Text>  {' '}
+      can help you to tweek the speech moducalation.
+    </Text>
+  </View>
+</View>:null}
+          
 
             <View>
               <Text>ENTER YOUR TEXT</Text>
               <TextInput
                 multiline={true}
-                numberOfLines={4}
+                numberOfLines={3}
                 onChangeText={(text) => setText({text})}
                 value={text}
                 style={{borderColor: 'black', borderWidth: 1, borderRadius: 10}}
@@ -434,9 +433,82 @@ export default function Home({route, navigation}) {
               <DropDownPicker
                 items={[
                   {
-                    label: 'English',
-                    value: 'English',
-                    icon: () => <Icon2 name="flag" size={18} color="#900" />,
+                    label: 'English India',
+                    value: 'en-IN',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/india.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'English Australia',
+                    value: 'en-AU',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/australia.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'English British',
+                    value: 'en-GB',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/british-virgin-islands.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'English Wales',
+                    value: 'en-GB-WLS',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/wales.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Spanish Spain',
+                    value: 'es-ES',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/spain.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Spanish Mexico',
+                    value: 'es-MX',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/mexico.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Spanish US',
+                    value: 'es-US',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/usa-today.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'French Canada',
+                    value: 'fr-CA',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/canada.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'French France',
+                    value: 'fr-FR',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/france.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Icelandic Iceland',
+                    value: 'is-IS',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/iceland.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Italian Italy',
+                    value: 'it-IT',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/italy.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Hindi India',
+                    value: 'hi-IN',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/india.png')}
+                                  style={{width:20,height:20}}/>,
+                  },
+                  {
+                    label: 'Chinese China',
+                    value: 'cmn-CN',
+                    icon: () => <Image source={require('../../Assets/Images/Flags/china.png')}
+                                  style={{width:20,height:20}}/>,
                   },
                 ]}
                 defaultValue={language}
@@ -516,6 +588,12 @@ export default function Home({route, navigation}) {
                         ),
                       },
                     ]}
+                    onOpen={()=>{
+                      setDropdownVisible(false);
+                    }}
+                    onClose={()=>{
+                      setDropdownVisible(true)
+                    }}
                     defaultValue={voice}
                     containerStyle={{height: 40}}
                     style={{backgroundColor: '#fafafa'}}
