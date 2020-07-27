@@ -79,14 +79,14 @@ export default function ShowFiles({route, navigation}) {
           permRes['android.permission.WRITE_EXTERNAL_STORAGE'] ===
             PermissionsAndroid.RESULTS.GRANTED
         ) {
-          setVisible(true);
+         // setVisible(true);
           try {
             var TRACK_FOLDER = RNFetchBlob.fs.dirs.SDCardDir + '/BlabberApp/';
             let files = await RNFetchBlob.fs.ls(TRACK_FOLDER);
             console.log(files);
             setFileList(files);
             setTimeout(() => {
-              setVisible(false);
+              //setVisible(false);
             }, 3000);
             console.log(filelist);
           } catch (error) {

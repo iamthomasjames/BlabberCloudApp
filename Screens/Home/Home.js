@@ -330,7 +330,7 @@ export default function Home({route, navigation}) {
                </View> */}
         </View>
         <View>
-          <View style={{paddingHorizontal: 30, paddingTop: 15}}>
+          <View style={{paddingHorizontal: 15, paddingTop: 15}}>
             <Modal
               animationType="slide"
               transparent={true}
@@ -429,7 +429,7 @@ export default function Home({route, navigation}) {
             </View>
           </View>
           <View>
-            <View style={{paddingHorizontal: 30}}>
+            <View style={{paddingHorizontal: 15}}>
               <Text>Select Language</Text>
               <DropDownPicker
                 items={[
