@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import auth from '@react-native-firebase/auth';
 
 
+
 export default function SplashScreen({navigation}) {
 
     const [user, setUser] = useState();
@@ -13,6 +14,9 @@ export default function SplashScreen({navigation}) {
         setUser(user);
         if(user)
         {
+
+            
+
             setTimeout(function(){
                 navigation.navigate("Home",{
               user: user.displayName,

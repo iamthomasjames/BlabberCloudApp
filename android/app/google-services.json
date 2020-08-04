@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1086234057257-7ufk9fvfr8vbb5tijneiuaasb1ou839n.apps.googleusercontent.com",
+          "client_id": "1086234057257-ger61tsd6k62h7i2171nab09r4s47ruf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "cloud.blabber.app",
-            "certificate_hash": "97b68bfc1c054ce9be98f68d3058c1e1df28d40c"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {

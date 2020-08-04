@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,StatusBar } from 'react-native'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +8,8 @@ import auth from '@react-native-firebase/auth';
 import Home from './Screens/Home/HomeOpen'
 import FilesPage from './Screens/ShowFiles/ShowFiles'
 import SplashScreen from './Screens/SplashScreen/SplashScreen'
+import Recharge from './Screens/Recharge/Recharge'
+
 
 export default function App({navigation}) {
   const Stack = createStackNavigator();
@@ -26,11 +28,13 @@ export default function App({navigation}) {
  
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="#3dadcc" />
        <Stack.Navigator initialRouteName="SplashScreen">
        <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown:false }} navigation={navigation}/>
        <Stack.Screen name="Login" component={Login} options={{ headerShown:false }} navigation={navigation}/>
        <Stack.Screen name="Home" component={Home} options={{ headerShown:false }} />
        <Stack.Screen name="FilesPage" component={Home} options={{ headerShown:false }} />
+       <Stack.Screen name="Recharge" component={Recharge} options={{ headerShown:false }} />
      </Stack.Navigator>
     </NavigationContainer>
   )

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -8,24 +8,25 @@ import Files from '../ShowFiles/ShowFiles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
-import {Linking} from 'react-native'
+import {Linking} from 'react-native';
+import Tutorials from '../Tutorial/Tutorial'
+import { DrawerActions } from '@react-navigation/native';
+import CustomDrawerContent from './CustomDrawerContent'
+
 
 function NotificationsScreen({navigation}) {
   auth()
     .signOut()
     .then(() => navigation.navigate('Login'));
+    navigation.dispatch(DrawerActions.jumpTo("Home"));
   return null;
 }
 
-function YoutubelinkScreen({navigation}) {
- 
-  const URL = "https://google.com"
-  useEffect(()=>{
-    Linking.openURL(URL).catch((err) => console.error('An error occurred', err));
-    navigation.navigate("Home")
-  })
-  return null;
-}
+// function YoutubelinkScreen({navigation}) {
+
+//   navigation.navigate('Home');
+//   return null;
+// }
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,14 +68,17 @@ const BottomTabNavigator = ({route, navigation}) => {
 export default function HomeOpen({route, navigation}) {
   const {user, email, photo, uid} = route.params;
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="Home" >
       <Drawer.Screen
         name="Home"
         component={BottomTabNavigator}
         initialParams={route}
       />
-     
-      <Drawer.Screen name="Tutorials" component={YoutubelinkScreen} />
+
+      <Drawer.Screen
+        name="Tutorials"
+        component={Tutorials}
+      />
       <Drawer.Screen name="Logout" component={NotificationsScreen} />
     </Drawer.Navigator>
   );
