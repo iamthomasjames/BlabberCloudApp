@@ -61,6 +61,7 @@ export default function Home({route, navigation}) {
   const [languageopen, setLanguageOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
+  const [modalVisible3, setModalVisible3] = useState(false);
   const [filename, setFilename] = useState('');
   const [filelist, setFileList] = useState({});
   const [displayfillist, setDisplayFileList] = useState({});
@@ -68,10 +69,12 @@ export default function Home({route, navigation}) {
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const [LangValue, setLangValue] = useState();
   const [firebaseTextCount, setFirebaseTextCount] = useState();
+  const [textboxwidth, setTextBoxWidth] = useState('99%');
+
 
   const onSubmitHandler = async () => {
-    if (firebaseTextCount >= text.text.length) {
-      if (text.text.length <= 2900) {
+    if (firebaseTextCount >= text.length) {
+      if (text.length <= 2900) {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
@@ -90,7 +93,7 @@ export default function Home({route, navigation}) {
             const response = await axios.post(
               'https://us-central1-app-tts-engine.cloudfunctions.net/app/speech',
               {
-                text: text.text,
+                text: text,
                 voice: voice,
                 language: language,
               },
@@ -101,7 +104,7 @@ export default function Home({route, navigation}) {
               .collection('Users')
               .doc(uid)
               .update({
-                totalcount: firebaseTextCount-text.text.length
+                totalcount: firebaseTextCount-text.length
               })
               .then(() => {
                 console.log('User updated!');
@@ -224,6 +227,9 @@ export default function Home({route, navigation}) {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setTextBoxWidth('100%')
+    }, 100);
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to exit?', [
         {
@@ -295,7 +301,9 @@ export default function Home({route, navigation}) {
     );
   } else {
     return (
-      <View style={{flex: 1}}>
+      <ScrollView >
+
+<View style={{flex: 1}}>
         <StatusBar backgroundColor="#3dadcc" />
         <View
           style={{
@@ -334,7 +342,10 @@ export default function Home({route, navigation}) {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <View
+          <TouchableOpacity
+            onPress={()=>{
+              navigation.navigate("Recharge");
+            }}
             style={{
               alignItems: 'center',
               justifyContent: 'center',
@@ -344,7 +355,7 @@ export default function Home({route, navigation}) {
             <Text style={{color: 'white', fontSize: 10}}>
               {firebaseTextCount ? firebaseTextCount : 0}
             </Text>
-          </View>
+          </TouchableOpacity>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <View
               style={{
@@ -404,6 +415,9 @@ export default function Home({route, navigation}) {
                     width: width - 30,
                     elevation: 5,
                   }}>
+                    <Text onPress={()=>{
+                      setModalVisible(false);
+                    }} style={{alignSelf:'flex-end'}}>X</Text>
                   <Text>ENTER YOUR FILE NAME</Text>
                   <TextInput
                     onChangeText={(text) => setFilename(text)}
@@ -426,24 +440,7 @@ export default function Home({route, navigation}) {
                     }}>
                     <Text style={styles.textStyle}>SAVE</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight
-                    style={{
-                      ...styles.openButton,
-                      backgroundColor: 'black',
-                      marginTop: 10,
-                    }}
-                    onPress={() => {
-                      setModalVisible(false);
-                    }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        textAlign: 'center',
-                        fontWeight: '700',
-                      }}>
-                      CANCEL
-                    </Text>
-                  </TouchableHighlight>
+                 
                 </View>
               </View>
             </Modal>
@@ -522,52 +519,22 @@ export default function Home({route, navigation}) {
                 </View>
               </View>
             </Modal>
-          </View>
-
-          {dropdownVisible ? (
-            <View
-              style={{
-                height: 70,
-                backgroundColor: 'gold',
-                justifyContent: 'center',
-                borderRadius: 10,
-                marginHorizontal: 15,
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Icon name="information-circle" size={30} color="white" />
-
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: 'black',
-                    fontWeight: 'bold',
-                    paddingRight: 25,
-                  }}>
-                  Using punctuations like{' '}
-                  <Text
-                    style={{color: 'black', textDecorationLine: 'underline'}}>
-                    .,?!-[]()
-                  </Text>{' '}
-                  can help you to tweak the speech modulation.
-                </Text>
-              </View>
-            </View>
-          ) : null}
-
-          <View style={{marginTop: 10, marginHorizontal: 15}}>
-            <Text>ENTER YOUR TEXT</Text>
-            <TextInput
-              multiline={true}
-              numberOfLines={3}
-              onChangeText={(text) => setText({text})}
-              value={text}
-              style={{borderColor: 'black', borderWidth: 1, borderRadius: 10}}
-            />
-          </View>
-
-          <View>
-            <View style={{paddingHorizontal: 15}}>
-              <Text>Select Language</Text>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible3}
+              onRequestClose={() => {}}>
+              <View style={styles.centeredView}>
+              <View style={{width:'90%',backgroundColor:'white',height:'50%',padding:10,borderRadius:5}}>
+                <TouchableOpacity>
+                <View style={{justifyContent:'flex-end'}}>
+                  <Text onPress={()=>{
+                     setModalVisible3(false)
+                  }} style={{alignSelf:'flex-end'}}>X</Text>
+                </View>
+                </TouchableOpacity>
+               <View>
+               <Text>Select Language</Text>
               <DropDownPicker
                 items={[
                   {
@@ -733,7 +700,7 @@ export default function Home({route, navigation}) {
                 }}
               />
               {voiceopen ? null : (
-                <View>
+                <View style={{marginTop:10}}>
                   <Text>SELECT VOICE</Text>
                   <DropDownPicker
                     items={
@@ -780,17 +747,22 @@ export default function Home({route, navigation}) {
                     dropDownStyle={{backgroundColor: '#fafafa'}}
                     onChangeItem={(item) => setVoice(item.value)}
                   />
-                  {languageopen ? null : (
-                    <View style={{marginTop: 10}}>
+                 
+                </View>
+              )}
+               </View>
+             
+               <View style={{marginTop: 15}}>
                       <View>
                         <ButtonView
                           title="PROCESS TO MP3"
                           color="#3dadcc"
                           text="white"
                           onPress={() => {
-                            if (text && voice) {
+                            if (language&&voice) {
                               if (firebaseTextCount >= 25) {
                                 setModalVisible(true);
+                                setModalVisible3(false);
                               } else {
                                 setModalVisible2(true);
                               }
@@ -802,13 +774,91 @@ export default function Home({route, navigation}) {
                       </View>
                       <View style={{marginTop: 10}}></View>
                     </View>
-                  )}
-                </View>
-              )}
             </View>
+              </View>
+            </Modal>
+          </View>
+
+          
+            <View
+              style={{
+                height: 70,
+                backgroundColor: 'gold',
+                justifyContent: 'center',
+                borderRadius: 10,
+                marginHorizontal: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Icon name="build" size={30} color="white" style={{paddingHorizontal:5}}/>
+
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    paddingRight: 30,
+                  }}>
+                  Using punctuations like{' '}
+                  <Text
+                    style={{color: 'black', textDecorationLine: 'underline'}}>
+                    . , ? ! - [ ] ( )
+                  </Text>{' '}
+                  can help you to tweak the speech modulation.
+                </Text>
+              </View>
+            </View>
+         
+
+          <View style={{marginTop: 10, marginHorizontal: 15}}>
+            <Text>ENTER YOUR TEXT</Text>
+            <TextInput
+              multiline={true}
+              numberOfLines={3}
+              onChangeText={(text) => setText(text)}
+              value={text}
+              style={{borderColor: 'black', borderWidth: 1, borderRadius: 10,width:textboxwidth}}
+            />
+          </View>
+          <View style={{marginTop: 10,paddingHorizontal:15}}>
+                      <View>
+                        <ButtonView
+                          title="CONTINUE"
+                          color="#3dadcc"
+                          text="white"
+                          onPress={() => {
+                            if (text) {
+                              if(text.length<2900)
+                              {
+                                console.log(text.length);
+                                if (firebaseTextCount >= 25) {
+                                  setModalVisible3(true);
+                                  setVoice('');
+                                  setLanguage('');
+                                } else {
+                                  setModalVisible2(true);
+                                }
+                              }
+                              else{
+                                alert('You have exceeded the maximum charactor limit. Please raise below 2900 text length!!')
+                              }
+                             
+                              
+                            } else {
+                              alert('Please enter the details');
+                            }
+                          }}
+                        />
+                      </View>
+                      <View style={{marginTop: 10}}></View>
+                    </View>
+
+          <View>
+          
           </View>
         </View>
       </View>
+      </ScrollView>
+     
     );
   }
 }

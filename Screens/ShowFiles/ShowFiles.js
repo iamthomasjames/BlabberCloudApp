@@ -163,7 +163,7 @@ export default function ShowFiles({route, navigation}) {
           <ScrollView>
             {filelist.map((name) => {
               return (
-                <View style={{marginTop: 10}}>
+                <View key={name} style={{marginTop: 10}}>
                   <View style={{elevation: 6}}>
                     <View style={{height: 5, backgroundColor: 'gold'}}></View>
                     <View
